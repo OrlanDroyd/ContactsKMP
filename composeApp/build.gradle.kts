@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
+    id("com.squareup.sqldelight")
 }
 
 kotlin {
@@ -16,6 +17,12 @@ kotlin {
         }
     }
     
+    targets.withType(org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget::class.java).all {
+        binaries.withType(org.jetbrains.kotlin.gradle.plugin.mpp.Framework::class.java).all {
+            export("dev.icerock.moko:mvvm-core:0.16.1")
+        }
+    }
+
     jvm("desktop")
     
     listOf(
@@ -36,16 +43,27 @@ kotlin {
             implementation(libs.compose.ui)
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
+
+            implementation("com.squareup.sqldelight:android-driver:1.5.5")
+            implementation("androidx.appcompat:appcompat:1.6.1")
+            implementation("androidx.activity:activity-compose:1.7.2")
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
         }
+        iosMain.dependencies {
+            implementation("com.squareup.sqldelight:native-driver:1.5.5")
+        }
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
-            implementation(compose.material)
+            implementation(compose.material3)
             @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
+
+            implementation("com.squareup.sqldelight:runtime:1.5.5")
+            implementation("com.squareup.sqldelight:coroutines-extensions:1.5.5")
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
         }
     }
 }
@@ -100,4 +118,19 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
+}
+
+sqldelight {
+    database("ContactDatabase") {
+        packageName = "com.gmail.orlandroyd.contactskmp.database"
+        sourceFolders = listOf("sqldelight")
+    }
+}
+
+dependencies {
+    implementation("androidx.core:core:1.10.1")
+    commonMainApi("dev.icerock.moko:mvvm-core:0.16.1")
+    commonMainApi("dev.icerock.moko:mvvm-compose:0.16.1")
+    commonMainApi("dev.icerock.moko:mvvm-flow:0.16.1")
+    commonMainApi("dev.icerock.moko:mvvm-flow-compose:0.16.1")
 }
