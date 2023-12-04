@@ -8,7 +8,7 @@ sealed interface ContactListEvent {
     data class OnFirstNameChange(val value: String) : ContactListEvent
     data class OnLastNameChange(val value: String) : ContactListEvent
     data class OnEmailChange(val value: String) : ContactListEvent
-    data class OnPhoneChange(val value: String) : ContactListEvent
+    data class OnPhoneNumberChange(val value: String) : ContactListEvent
     class OnPhotoPicked(val bytes: ByteArray) : ContactListEvent
     data object OnAddPhotoClick : ContactListEvent
     data object OnSaveContact : ContactListEvent
