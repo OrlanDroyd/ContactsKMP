@@ -1,5 +1,5 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.compose.ExperimentalComposeLibrary
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -16,7 +16,7 @@ kotlin {
             }
         }
     }
-    
+
     targets.withType(org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget::class.java).all {
         binaries.withType(org.jetbrains.kotlin.gradle.plugin.mpp.Framework::class.java).all {
             export("dev.icerock.moko:mvvm-core:0.16.1")
@@ -24,7 +24,7 @@ kotlin {
     }
 
     jvm("desktop")
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -35,10 +35,10 @@ kotlin {
             isStatic = true
         }
     }
-    
+
     sourceSets {
         val desktopMain by getting
-        
+
         androidMain.dependencies {
             implementation(libs.compose.ui)
             implementation(libs.compose.ui.tooling.preview)
@@ -50,6 +50,7 @@ kotlin {
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
+            //implementation("com.squareup.sqldelight:native-driver:1.5.5")
         }
         iosMain.dependencies {
             implementation("com.squareup.sqldelight:native-driver:1.5.5")

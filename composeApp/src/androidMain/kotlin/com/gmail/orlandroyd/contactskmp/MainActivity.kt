@@ -5,6 +5,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.ui.platform.LocalContext
+import di.AppModule
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -13,7 +15,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             App(
                 darkTheme = isSystemInDarkTheme(),
-                dynamicColor = true
+                dynamicColor = false,
+                appModule = AppModule(LocalContext.current.applicationContext)
             )
         }
     }
