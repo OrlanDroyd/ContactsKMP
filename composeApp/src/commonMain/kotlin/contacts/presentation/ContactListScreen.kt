@@ -21,7 +21,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import contacts.domain.Contact
 import contacts.presentation.components.AddContactSheet
+import contacts.presentation.components.ContactDetailSheet
 import contacts.presentation.components.ContactListItem
+import contacts.presentation.components.RecentlyAddedContacts
 import core.presentation.ImagePicker
 
 @Composable
@@ -54,14 +56,14 @@ fun ContactListScreen(
             contentPadding = PaddingValues(vertical = 16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-//            item {
-//                RecentlyAddedContacts(
-//                    contacts = state.recentlyAddedContacts,
-//                    onClick = {
-//                        onEvent(ContactListEvent.SelectContact(it))
-//                    }
-//                )
-//            }
+            item {
+                RecentlyAddedContacts(
+                    contacts = state.recentlyAddedContacts,
+                    onClick = {
+                        onEvent(ContactListEvent.SelectContact(it))
+                    }
+                )
+            }
 
             item {
                 Text(
@@ -87,11 +89,11 @@ fun ContactListScreen(
         }
     }
 
-//    ContactDetailSheet(
-//        isOpen = state.isSelectedContactSheetOpen,
-//        selectedContact = state.selectedContact,
-//        onEvent = onEvent,
-//    )
+    ContactDetailSheet(
+        isOpen = state.isSelectedContactSheetOpen,
+        selectedContact = state.selectedContact,
+        onEvent = onEvent,
+    )
     AddContactSheet(
         state = state,
         newContact = newContact,

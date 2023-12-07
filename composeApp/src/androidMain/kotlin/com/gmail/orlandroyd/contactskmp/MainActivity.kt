@@ -16,7 +16,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             App(
                 darkTheme = isSystemInDarkTheme(),
-                dynamicColor = false,
+                dynamicColor = true,
                 appModule = AppModule(LocalContext.current.applicationContext),
                 imagePicker = ImagePickerFactory().createPicker()
             )
