@@ -1,8 +1,10 @@
-import platform.UIKit.UIScreen
-import platform.UIKit.UIUserInterfaceStyle
+import androidx.compose.ui.window.ComposeUIViewController
+import core.presentation.ImagePickerFactory
+import di.AppModule
 import androidx.compose.ui.interop.LocalUIViewController
 import androidx.compose.ui.window.ComposeUIViewController
-import di.AppModule
+import platform.UIKit.UIScreen
+import platform.UIKit.UIUserInterfaceStyle
 
 fun MainViewController() = ComposeUIViewController {
     val isDarkTheme =
@@ -11,6 +13,7 @@ fun MainViewController() = ComposeUIViewController {
     App(
         darkTheme = isDarkTheme,
         dynamicColor = false,
-        appModule = AppModule()
+        appModule = AppModule(),
+        imagePicker = ImagePickerFactory(LocalUIViewController.current).createPicker()
     )
 }
